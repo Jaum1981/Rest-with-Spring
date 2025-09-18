@@ -1,1 +1,16 @@
-spring.application.name=Rest-with-Spring
+spring:
+  application:
+    name: Rest-with-Spring
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/rest-udemy
+    username: postgres
+    password: 1981
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  logging:
+    level:
+#      com.github.jaum1981: DEBUG
+      com.github.jaum1981: WARN
