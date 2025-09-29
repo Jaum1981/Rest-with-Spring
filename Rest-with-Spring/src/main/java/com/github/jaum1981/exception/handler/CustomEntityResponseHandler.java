@@ -16,14 +16,12 @@ import java.util.Date;
 @RestController
 public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler {
 
-    /* trata os erros genéricos */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
-                request.getDescription(false)
-        );
+                request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -32,9 +30,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
-                request.getDescription(false)
-        );
+                request.getDescription(false));
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
-
 }

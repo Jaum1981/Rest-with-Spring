@@ -1,7 +1,7 @@
 package com.github.jaum1981.controllers;
 
 import com.github.jaum1981.data.dto.PersonDTO;
-import com.github.jaum1981.services.PersonService;
+import com.github.jaum1981.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -10,39 +10,45 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired
-    private PersonService service;
+    private PersonServices service;
+    // private PersonServices service = new PersonServices();
 
-    @GetMapping(
-            value = "/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public PersonDTO findById(@PathVariable("id") Long id){
-        return service.findById(id);
-    }
-
-    @GetMapping(
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PersonDTO> findAll() {
         return service.findAll();
     }
 
-    @DeleteMapping(
+    @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> delete(Long id) {
-        service.deleteById(id);
-        return  ResponseEntity.noContent().build();
+    public PersonDTO findById(@PathVariable("id") Long id) {
+        return service.findById(id);
     }
+
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public PersonDTO save(@RequestBody PersonDTO person) {
+    public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
+    }
+
+    @PutMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public PersonDTO update(@RequestBody PersonDTO person) {
+        return service.update(person);
+    }
+
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -8,9 +8,9 @@ spring:
     password: 1981
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
   logging:
     level:
-#      com.github.jaum1981: DEBUG
-      com.github.jaum1981: WARN
+      com.github.jaum1981: DEBUG
+#      com.github.jaum1981: WARN
